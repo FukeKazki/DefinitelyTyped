@@ -277,6 +277,31 @@ declare namespace ShopifyBuy {
         value: string;
     }
 
+    export interface LineItemsSubtotalPrice {
+        amount: string
+        currencyCode: string
+    }
+
+    export interface TotalPriceV2 {
+        amount: string
+        currencyCode: string
+    }
+
+    export interface SubtotalPriceV2 {
+        amount: string
+        currencyCode: string
+    }
+
+    export interface TotalTaxV2 {
+        amount: string
+        currencyCode: string
+    }
+    
+    export interface PaymentDueV2 {
+        amount: string
+        currencyCode: string
+    }
+
     export interface Collection {
         handle: string;
         body_html: string;
@@ -293,37 +318,36 @@ declare namespace ShopifyBuy {
     }
 
     export interface Cart extends GraphModel {
-        /**
-         * Get checkout URL for current cart
-         */
-        checkoutUrl: string;
-
-        /**
-         * get ID for current cart
-         */
         id: string | number;
-
-        /**
-         * Gets the total quantity of all line items. Example: you've added two variants
-         * with quantities 3 and 2. lineItemCount will be 5.
-         */
-        lineItemCount: number;
-
-        /**
-         * Get an Array of CartLineItemModel's
-         */
-        lineItems: LineItem[];
-
-        /**
-         * Get current subtotal price for all line items, before shipping, taxes, and discounts.
-         * Example: two items have been added to the cart that cost $1.25 then the subtotal will be 2.50
-         */
+        ready: boolean;
+        requiresShipping: boolean;
+        note: string | null;
+        paymentDue: string;
+        webUrl: string;
+        orderStatusUrl: string | null;
+        taxExempt: boolean;
+        taxesIncluded: boolean;
+        currencyCode: string;
+        totalTax: string;
         subtotalPrice: string;
-
-        /**
-         * Get completed at date.
-         */
+        totalPrice: string;
         completedAt: string | null;
+        createdAt: string;
+        updatedAt: string;
+        email: string | null;
+        shippingAddress: string | null;
+        shippingLine: string | null;
+        order: string | null;
+
+        lineItems: LineItem[];
+        customAttributes: string[];
+        appliedGiftCards: string[];
+        discountApplications: string[];
+        totalPriceV2: TotalPriceV2;
+        subtotalPriceV2: SubtotalPriceV2;
+        lineItemsSubtotalPrice: LineItemsSubtotalPrice;
+        totalTaxV2: TotalTaxV2;
+        paymentDueV2: PaymentDueV2;
     }
 
     export interface LineItem extends GraphModel {
